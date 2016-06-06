@@ -116,5 +116,5 @@ Revision.plist
 
 
 ### fire base ###
-*/GoogleService-Info.plist
-*/Info.plist
+GoogleService-Info.plist
+Info.plist
