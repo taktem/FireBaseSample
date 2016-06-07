@@ -1,6 +1,6 @@
 //
 //  FacebookAuth.swift
-//  hero
+//  FirebaseSample
 //
 //  Created by 西村 拓 on 2015/11/22.
 //  Copyright © 2015年 TakuNishimura. All rights reserved.

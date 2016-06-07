@@ -16,10 +16,10 @@
 		F457647E1D051D29003E713E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F457647C1D051D29003E713E /* LoginViewController.swift */; };
 		F45764811D051E45003E713E /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45764801D051E45003E713E /* FirebaseAuth.swift */; };
 		F45764841D051FC9003E713E /* FirebaseUserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45764831D051FC9003E713E /* FirebaseUserEntity.swift */; };
+		F45764881D053682003E713E /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45764861D053682003E713E /* Alert.swift */; };
 		F4AFC2741D002FBA004B84EA /* FacebookAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AFC26E1D002FBA004B84EA /* FacebookAuth.swift */; };
 		F4AFC2751D002FBA004B84EA /* FacebookUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AFC26F1D002FBA004B84EA /* FacebookUser.swift */; };
 		F4AFC2771D002FBA004B84EA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4AFC2721D002FBA004B84EA /* GoogleService-Info.plist */; };
-		F4AFC2781D002FBA004B84EA /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F4AFC2731D002FBA004B84EA /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +35,8 @@
 		F457647C1D051D29003E713E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F45764801D051E45003E713E /* FirebaseAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseAuth.swift; path = FireBase/FirebaseAuth.swift; sourceTree = "<group>"; };
 		F45764831D051FC9003E713E /* FirebaseUserEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseUserEntity.swift; path = FireBase/FirebaseUserEntity.swift; sourceTree = "<group>"; };
+		F45764861D053682003E713E /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Alert.swift; path = Util/Alert.swift; sourceTree = "<group>"; };
+		F489281B1D054B4F00AD96D5 /* FirebaseSample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FirebaseSample-Bridging-Header.h"; sourceTree = "<group>"; };
 		F4AFC26E1D002FBA004B84EA /* FacebookAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookAuth.swift; sourceTree = "<group>"; };
 		F4AFC26F1D002FBA004B84EA /* FacebookUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookUser.swift; sourceTree = "<group>"; };
 		F4AFC2721D002FBA004B84EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -88,7 +90,9 @@
 				F4035C931CFE80C000623CE8 /* LaunchScreen.storyboard */,
 				F457647A1D051D29003E713E /* ViewController */,
 				F4AFC26C1D002FBA004B84EA /* Model */,
+				F45764851D053657003E713E /* Util */,
 				F4AFC2701D002FBA004B84EA /* Resource */,
+				F489281B1D054B4F00AD96D5 /* FirebaseSample-Bridging-Header.h */,
 			);
 			path = FireBaseSample;
 			sourceTree = "<group>";
@@ -109,6 +113,14 @@
 				F45764831D051FC9003E713E /* FirebaseUserEntity.swift */,
 			);
 			name = FireBase;
+			sourceTree = "<group>";
+		};
+		F45764851D053657003E713E /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				F45764861D053682003E713E /* Alert.swift */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 		F4AFC26C1D002FBA004B84EA /* Model */ = {
@@ -210,7 +222,6 @@
 			files = (
 				F4035C951CFE80C000623CE8 /* LaunchScreen.storyboard in Resources */,
 				F4035C921CFE80C000623CE8 /* Assets.xcassets in Resources */,
-				F4AFC2781D002FBA004B84EA /* Info.plist in Resources */,
 				F4AFC2771D002FBA004B84EA /* GoogleService-Info.plist in Resources */,
 				F4035C901CFE80C000623CE8 /* Main.storyboard in Resources */,
 			);
@@ -277,6 +288,7 @@
 				F4035C8B1CFE80C000623CE8 /* AppDelegate.swift in Sources */,
 				F45764841D051FC9003E713E /* FirebaseUserEntity.swift in Sources */,
 				F457647E1D051D29003E713E /* LoginViewController.swift in Sources */,
+				F45764881D053682003E713E /* Alert.swift in Sources */,
 				F457647D1D051D29003E713E /* CreateUserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,10 +403,13 @@
 			baseConfigurationReference = F3006620649E7819774E32E3 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = FireBaseSample/Resource/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.taktem.firebaseSample;
 				PRODUCT_NAME = FirebaseSample.temp_caseinsensitive_rename;
+				SWIFT_OBJC_BRIDGING_HEADER = "FireBaseSample/FirebaseSample-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -403,10 +418,12 @@
 			baseConfigurationReference = 5B6434F27CA0B329C0BAFB6B /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = FireBaseSample/Resource/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.taktem.firebaseSample;
 				PRODUCT_NAME = FirebaseSample.temp_caseinsensitive_rename;
+				SWIFT_OBJC_BRIDGING_HEADER = "FireBaseSample/FirebaseSample-Bridging-Header.h";
 			};
 			name = Release;
 		};

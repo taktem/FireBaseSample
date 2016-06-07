@@ -40,23 +40,34 @@ class LoginViewController: UIViewController {
 
     //MARK: - Auth
     @IBAction private func emailLoginButtonTapped() {
-        FIRAuth.authWithApp(FIRApp.defaultApp()!)?.signInWithEmail(
-            emailTextField.text!,
-            password: passwordTextField.text!, completion: { (user: FIRUser?, error: NSError?) in
-                print(user?.uid)
-        })
+        
+        view.endEditing(true)
+        
+        firebaseAuth.authEmail(emailTextField.text!, password: passwordTextField.text!)
     }
     
     @IBAction private func facebookLoginButtonTapped() {
+        
+        view.endEditing(true)
+        
         facebookAuth.login(target: self)
-            .subscribeNext { [unowned self] in
-                self.firebaseAuth.firebaseLoginWithFacebook($0)
-                    .subscribeNext { (firUser: FIRUser) in
-                        
-                    }
-                    .addDisposableTo(self.disposeBag)
-            }
+            .subscribe(onNext: { [unowned self] in
+                self.authWithFacebook($0)
+                }, onError: {
+                    Alert.show(title: "", message: ($0 as NSError).localizedDescription, buttonTitles: ["OK"])
+                }, onCompleted: nil, onDisposed: nil)
             .addDisposableTo(disposeBag)
     }
-}
+    
+    private func authWithFacebook(facebookUser: FacebookUser) {
+        
+        firebaseAuth.firebaseLoginWithFacebook(facebookUser)
+            .subscribe(onNext: { _ in
+                Alert.show(title: "", message: "Facebook auth Success", buttonTitles: ["OK"])
+                }, onError: {
+                    Alert.show(title: "", message: ($0 as NSError).localizedDescription, buttonTitles: ["OK"])
+                }, onCompleted: nil, onDisposed: nil)
+            .addDisposableTo(disposeBag)
+    }
 
+}

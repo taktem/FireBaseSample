@@ -44,22 +44,44 @@ class FirebaseAuth: UIViewController {
     /**
      Email Auth
      */
-    final func createEmailUser(email: String, password: String) {
-        FIRAuth.auth()?.createUserWithEmail(
-            email,
-            password: password,
-            completion: {
-                (user: FIRUser?, error: NSError?) in
-                print(error)
-        })
+    final func createEmailUser(email: String, password: String) -> Observable<FIRUser> {
+        
+        return Observable.create { (observer: AnyObserver<FIRUser>) -> Disposable in
+            FIRAuth.auth()?.createUserWithEmail(
+                email,
+                password: password,
+                completion: {
+                    (user: FIRUser?, error: NSError?) in
+                    
+                    if let user = user {
+                        user.sendEmailVerificationWithCompletion(nil)
+                        
+                        observer.onNext(user)
+                    } else if let error = error {
+                        observer.onError(error)
+                    }
+                    
+            })
+            return AnonymousDisposable {}
+        }
     }
     
     final func authEmail(email: String, password: String) {
+       
         FIRAuth.auth()?.signInWithEmail(
             email,
             password: password,
             completion: { (user: FIRUser?, error: NSError?) in
-                print(user?.uid)
+                
+                if let user = user {
+                    if user.emailVerified {
+                        Alert.show(title: "", message: "Login Success", buttonTitles: ["OK"])
+                    } else {
+                        Alert.show(title: "", message: "Email is not verified", buttonTitles: ["OK"])
+                    }
+                } else if let error = error {
+                    Alert.show(title: "", message: error.localizedDescription, buttonTitles: ["OK"])
+                }
         })
     }
     
@@ -76,6 +98,7 @@ class FirebaseAuth: UIViewController {
                 user.linkWithCredential(credential, completion: { (firUser: FIRUser?, error: NSError?) in
                     if let firUser = firUser {
                         observer.onNext(firUser)
+                        observer.onCompleted()
                     } else if let error = error {
                         observer.onError(error)
                     }
@@ -84,6 +107,7 @@ class FirebaseAuth: UIViewController {
                 FIRAuth.auth()?.signInWithCredential(credential, completion: { (firUser: FIRUser?, error: NSError?) in
                     if let firUser = firUser {
                         observer.onNext(firUser)
+                        observer.onCompleted()
                     } else if let error = error {
                         observer.onError(error)
                     }
