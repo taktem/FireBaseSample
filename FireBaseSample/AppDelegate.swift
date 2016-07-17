@@ -22,34 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        FIRApp.configure()
-        FIRAnalytics.setUserID(UIDevice.currentDevice().identifierForVendor?.UUIDString)
-        
-        fireBaseAuth.authAnonymous()
+        firebaseSetting()
         
         return FBSDKApplicationDelegate.sharedInstance().application(
             application,
             didFinishLaunchingWithOptions: launchOptions)
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    private func firebaseSetting() {
+        FIRApp.configure()
+        FIRAnalytics.setUserID(UIDevice.currentDevice().identifierForVendor?.UUIDString)
         
-    }
-
-    func applicationDidEnterBackground(application: UIApplication) {
-        
-    }
-
-    func applicationWillEnterForeground(application: UIApplication) {
-        
-    }
-
-    func applicationDidBecomeActive(application: UIApplication) {
-        
-    }
-
-    func applicationWillTerminate(application: UIApplication) {
-        
+        fireBaseAuth.authAnonymous()
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {

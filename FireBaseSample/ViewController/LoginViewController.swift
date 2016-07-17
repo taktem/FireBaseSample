@@ -44,6 +44,20 @@ class LoginViewController: UIViewController {
         view.endEditing(true)
         
         firebaseAuth.authEmail(emailTextField.text!, password: passwordTextField.text!)
+            .subscribe(onNext: { (user: FIRUser) in
+                
+                // メールバリデーションが完了しているか確認
+                if user.emailVerified {
+                    Alert.show(title: "", message: "Login Success", buttonTitles: ["OK"])
+                } else {
+                    Alert.show(title: "", message: "Email is not verified", buttonTitles: ["OK"])
+                }
+                
+                }, onError: { (error: ErrorType) in
+                    
+                }, onCompleted: nil, onDisposed: nil)
+            .addDisposableTo(disposeBag)
+        
     }
     
     @IBAction private func facebookLoginButtonTapped() {

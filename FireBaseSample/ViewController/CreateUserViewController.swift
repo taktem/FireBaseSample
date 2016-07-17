@@ -34,7 +34,6 @@ class CreateUserViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
     
     private func bind() {
@@ -58,9 +57,9 @@ class CreateUserViewController: UIViewController {
     @IBAction private func createUserButtonTapped() {
         
         firebaseAuth.createEmailUser(emailTextField.text!, password: passwordTextField.text!)
-            .subscribe(onNext: { _ in
+            .subscribe(onNext: { [unowned self] _ in
                 Alert.show(title: "", message: "Success", buttonTitles: ["OK"])
-                
+                self.dismissViewControllerAnimated(true, completion: nil)
                 }, onError: { _ in
                     Alert.show(title: "", message: "Error", buttonTitles: ["OK"])
                 }, onCompleted: nil, onDisposed: nil)

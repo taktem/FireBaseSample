@@ -26,7 +26,6 @@ class FirebaseAuth: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
     /**
       Anonymous Auth
      */
@@ -35,9 +34,9 @@ class FirebaseAuth: UIViewController {
             
             print(user?.uid)
             
-            user?.getTokenWithCompletion({ (token: String?, error: NSError?) in
+            user?.getTokenWithCompletion { (token: String?, error: NSError?) in
                 print(token)
-            })
+            }
         }
     }
     
@@ -66,23 +65,25 @@ class FirebaseAuth: UIViewController {
         }
     }
     
-    final func authEmail(email: String, password: String) {
+    final func authEmail(email: String, password: String) -> Observable<FIRUser> {
        
-        FIRAuth.auth()?.signInWithEmail(
-            email,
-            password: password,
-            completion: { (user: FIRUser?, error: NSError?) in
-                
-                if let user = user {
-                    if user.emailVerified {
-                        Alert.show(title: "", message: "Login Success", buttonTitles: ["OK"])
-                    } else {
-                        Alert.show(title: "", message: "Email is not verified", buttonTitles: ["OK"])
+        return Observable.create { (observer: AnyObserver<FIRUser>) -> Disposable in
+            FIRAuth.auth()?.signInWithEmail(
+                email,
+                password: password,
+                completion: { (user: FIRUser?, error: NSError?) in
+                    
+                    if let user = user {
+                        user.sendEmailVerificationWithCompletion(nil)
+                        
+                        observer.onNext(user)
+                    } else if let error = error {
+                        observer.onError(error)
                     }
-                } else if let error = error {
-                    Alert.show(title: "", message: error.localizedDescription, buttonTitles: ["OK"])
-                }
-        })
+            })
+            
+            return AnonymousDisposable {}
+        }
     }
     
     /**
